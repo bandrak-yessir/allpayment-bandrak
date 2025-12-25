@@ -1,0 +1,171 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bandrak || Shop Payment</title>
+  <style>
+    * { box-sizing: border-box; font-family: 'Segoe UI', sans-serif; }
+    body {
+      margin: 0; background: #000; color: #fff; overflow-x: hidden;
+    }
+    /* VIDEO SPLASH */
+    #splash {
+      position: fixed; inset: 0; background: #000; z-index: 999;
+      display: flex; align-items: center; justify-content: center;
+    }
+    #splash video { width: 100%; height: 100%; object-fit: cover; }/* MAIN */
+#main {
+  display: none; min-height: 100vh; position: relative;
+}
+#bg-video {
+  position: fixed; inset: 0; z-index: -1;
+  width: 100%; height: 100%; object-fit: cover; filter: blur(4px) brightness(0.5);
+}
+.container {
+  max-width: 420px;
+  min-height: 100vh;
+  margin: auto;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card {
+  background: rgba(20,20,20,.8); border-radius: 16px;
+  padding: 20px; box-shadow: 0 0 25px rgba(0,0,0,.6);
+  animation: fade 1s ease;
+}
+@keyframes fade { from {opacity:0; transform:translateY(20px)} to {opacity:1} }
+
+.logo {
+  text-align: center; margin-bottom: 10px;
+}
+.logo img {
+  width: 100px; border-radius: 50%; box-shadow: 0 0 15px #000;
+}
+.shop-name {
+  text-align: center; font-size: 20px; font-weight: bold; margin-top: 8px;
+}
+.subtitle {
+  text-align: center; font-size: 14px; opacity: .8; margin: 10px 0 20px;
+}
+
+.pay-btn {
+  width: 100%; padding: 14px; margin: 10px 0;
+  border: none; border-radius: 12px;
+  font-size: 16px; font-weight: bold;
+  background: linear-gradient(135deg,#ff005a,#7f00ff);
+  color: #fff; cursor: pointer; transition: .3s;
+}
+.pay-btn:hover { transform: scale(1.03); }
+
+.detail {
+  display: none; margin-top: 10px;
+  background: rgba(0,0,0,.5); padding: 12px; border-radius: 10px;
+}
+.detail p { margin: 6px 0; font-size: 14px; }
+
+.action {
+  display: flex; gap: 10px; margin-top: 8px;
+}
+.action button {
+  flex: 1; padding: 10px; border-radius: 8px;
+  border: none; cursor: pointer; font-size: 13px;
+}
+.copy { background: #00c853; color: #000; }
+.download { background: #2979ff; color: #fff; }
+
+.qris img {
+  width: 100%; border-radius: 12px; margin-top: 10px;
+}
+
+.contact {
+  text-align: center; margin-top: 20px;
+}
+.contact a {
+  color: #00e676; text-decoration: none; font-weight: bold;
+}
+
+  </style>
+</head>
+<body><!-- SPLASH VIDEO --><div id="splash">
+  <video src="https://files.catbox.moe/lk5hpc.mp4" autoplay muted></video>
+</div><!-- MAIN --><div id="main">
+  <video id="bg-video" src="https://files.catbox.moe/lk5hpc.mp4" autoplay muted loop></video>  <div class="container">
+    <div class="card">
+      <div class="logo">
+        <img src="https://files.catbox.moe/znv3az.jpeg" />
+      </div>
+      <div class="shop-name"͞͞> 𝐁𝐚𝐧𝐝𝐫𝐚𝐤 || 𝐒𝐡𝐨𝐩 <\></div>
+      <div class=subtitle"> WELCOME DI WEBSITE PEMBAYARAN DIGITAL</div>
+      <div class="subtitle">SILAHKAN PILIH MAU TRANSFER KE MANA</div><!-- DANA -->
+  <button class="pay-btn" onclick="toggle('dana')">DANA</button>
+  <div id="dana" class="detail">
+    <p>No : <span id="danaNo">085773652775</span></p>
+    <p>A/N : indra Gunawan</p>
+    <div class="action">
+      <button class="copy" onclick="copyText('danaNo')">SALIN</button>
+    </div>
+  </div>
+
+  <!-- OVO -->
+  <button class="pay-btn" onclick="toggle('ovo')">OVO</button>
+  <div id="ovo" class="detail">
+    <p>No : <span id="ovoNo">0895406196907</span></p>
+    <p>A/N : indra Gunawan</p>
+    <div class="action">
+      <button class="copy" onclick="copyText('ovoNo')">SALIN</button>
+    </div>
+  </div>
+
+  <!-- GOPAY -->
+  <button class="pay-btn" onclick="toggle('gopay')">GOPAY</button>
+  <div id="gopay" class="detail">
+    <p>No : <span id="gopayNo">085133499437</span></p>
+    <p>A/N : indra Gunawan</p>
+    <div class="action">
+      <button class="copy" onclick="copyText('gopayNo')">SALIN</button>
+    </div>
+  </div>
+
+  <!-- QRIS -->
+  <button class="pay-btn" onclick="toggle('qris')">QRIS</button>
+  <div id="qris" class="detail qris">
+    <img src="https://img1.pixhost.to/images/7041/619647008_imgtmp.jpg" />
+    <div class="action">
+      <button class="download" onclick="downloadQR()">DOWNLOAD</button>
+    </div>
+  </div>
+
+  <div class="contact">
+    <p>Kontak Admin :</p>
+    <a href="https://wa.me/+62895406196907" target="_blank">WhatsApp Admin</a>
+  </div>
+</div>
+
+  </div>
+</div><script>
+  setTimeout(() => {
+    document.getElementById('splash').style.display = 'none';
+    document.getElementById('main').style.display = 'block';
+  }, 3000);
+
+  function toggle(id) {
+    const el = document.getElementById(id);
+    el.style.display = el.style.display === 'block' ? 'none' : 'block';
+  }
+
+  function copyText(id) {
+    const text = document.getElementById(id).innerText;
+    navigator.clipboard.writeText(text);
+    alert('Nomor berhasil disalin');
+  }
+
+  function downloadQR() {
+    const a = document.createElement('a');
+    a.href = 'https://img1.pixhost.to/images/7041/619647008_imgtmp.jpg';
+    a.download = 'QRIS-Bandrak-Shop.jpg';
+    a.click();
+  }
+</script></body>
+</html>
